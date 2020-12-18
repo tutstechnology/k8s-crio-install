@@ -204,15 +204,54 @@ sudo systemctl status crio
 ### Installation and configuration Kubernetes:
 
 #### **Step 7**: | Master | Worker | - _Install Kubernetes Packages (`kubeadm`, `kubelet`, `kubectl`):_
-```
-sudo apt install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
-```
 
+Add CRI-O repositories and install:
 ```
+sudo -i
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
 sudo apt update
-sudo apt install -y kubeadm kubelet kubectl kubernetes-cni
+```
+
+Create variable for Kubernetes version:
+```
+sudo -i
+export K8SVERSION=1.20.0-00
+```
+**IMPORTANT:** You can find the specific version by the following command:
+```
+curl -s https://packages.cloud.google.com/apt/dists/kubernetes-xenial/main/binary-amd64/Packages | grep Version | awk '{print $2}'
+```
+
+Install `Kubeadm`
+```
+sudo apt install -y kubeadm=$K8SVERSION --allow-unauthenticated
+```
+
+Install `kubectl`
+```
+sudo apt install -y kubectl=$K8SVERSION --allow-unauthenticated
+```
+
+Install `kubelet`
+
+File creation `kubelet`:
+```
+vim /etc/default/kubelet
+```
+Copy and paste the information below into the file:
+```
+KUBELET_EXTRA_ARGS=--feature-gates="AllAlpha=false,RunAsGroup=true" --container-runtime=remote --cgroup-driver=systemd --container-runtime-endpoint='unix:///var/run/crio/crio.sock' --runtime-request-timeout=5m
+```
+
+Install `kubelet`
+```
+sudo apt install -y kubelet=$K8SVERSION --allow-unauthenticated
+```
+
+Install `kubernetes-cni`
+```
+sudo apt-get install -y kubernetes-cni --allow-unauthenticated
 ```
 
 
