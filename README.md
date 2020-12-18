@@ -154,6 +154,47 @@ apt-get update
 apt-get install cri-o cri-o-runc
 ```
 
+```
+which conmon
+```
+Command result example:
+```
+/usr/bin/conmon
+```
+
+```
+/etc/crio/crio.conf
+```
+
+
+_You must include the following lines in the file:_
+
+_(line 108)_
+
+```
+conmon = "/usr/bin/conmon" 
+```
+
+_(line 351)_
+
+```
+registries = [
+        "docker.io",
+        "quay.io",
+]
+```
+
+
+File creation `crio.conf`:
+```
+vim /etc/crio/crio.conf
+```
+Copy and paste the information below into the file:
+```
+/usr/bin/conmon
+```
+
+
 
 -----------------------
 ### Installation and configuration Kubernetes:
