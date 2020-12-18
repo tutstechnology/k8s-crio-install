@@ -1,5 +1,5 @@
 # Install Cluster K8S with CRI-O on Ubuntu 20.04
-## (Master and Workers) and services: CRIO-O, Dashboard, Metrics, Ambassador and Prometheus
+## (Master and Workers) and services: CRI-O, Dashboard, Metrics, Ambassador and Prometheus
 
 -----------------------
 ### Information:
@@ -76,9 +76,9 @@ sudo apt update
 Example:
 ```
 127.0.0.1 localhost
-10.130.200.25   aws-prd-k8smaster01
-10.130.200.26   aws-prd-k8sworker01
-10.130.200.27   aws-prd-k8sworker02
+192.168.15.11   hpv-prd-k8s-cplane01
+192.168.15.12   hpv-prd-k8s-worker01
+192.168.15.13   hpv-prd-k8s-worker02
 ```
 
 #### **Step 3**: | Master | Worker | - _Set the `hostname` for the Master server:_
@@ -106,9 +106,9 @@ Exemple: **#**/swap.img      none    swap    sw      0       0
 sudo reboot
 ```
 -----------------------
-### Install Docker CE:
+### Install CRI-O:
 
-#### **Step 6**: | Master | Worker | - _Installing Docker:_
+#### **Step 6**: | Master | Worker | - _Installing CRI-O:_
 ```
 sudo apt update
 ```
