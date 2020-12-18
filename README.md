@@ -12,6 +12,8 @@ _The installation simulation is based on a Master server and two Workers server 
 
 **Kubernetes:** *1.20*
 **CRI-O:** *1.20*
+**K8S Dashboard:** *2.1.0*
+**Metrics:** *0.4.1*
 
 
 **IMPORTANT:** You can modify the versions by changing the variables exemplified in this document.
@@ -78,7 +80,7 @@ lsof -i -P -n | grep LISTEN
 
 #### **Step 1**: | Master | Worker | - _Update the latest packages using the apt `update command`:_
 ```
-sudo apt update
+sudo apt update -y
 ```
 
 #### **Step 2**: | Master | Worker | - _Define the name and ip of the servers that form the k8s cluster. Edit the `/etc/hosts` file and add the cluster servers:_
@@ -146,7 +148,6 @@ sudo sysctl --system
 
 Create variables for Ubuntu amd CRI-O version:
 ```
-sudo -i
 export OS=xUbuntu_20.04
 export VERSION=1.20
 ```
@@ -207,7 +208,6 @@ sudo systemctl status crio
 
 Add CRI-O repositories and install:
 ```
-sudo -i
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
 sudo apt update
@@ -215,7 +215,6 @@ sudo apt update
 
 Create variable for Kubernetes version:
 ```
-sudo -i
 export K8SVERSION=1.20.0-00
 ```
 **IMPORTANT:** You can find the specific version by the following command:
@@ -329,7 +328,7 @@ kubectl get pods --all-namespaces
 
 Oficial Repository:
 ```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.3/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.1.0/aio/deploy/recommended.yaml
 ```
 
 #### **Step 14**: | Master | - _Dashboard Deploy - Create `Admin User`:_
@@ -441,7 +440,7 @@ http://localhost:5888/api/v1/namespaces/kubernetes-dashboard/services/https:kube
 
 Oficial Repository:
 ```
-kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.3.7/components.yaml
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.4.1/components.yaml
 ```
 
 ```
