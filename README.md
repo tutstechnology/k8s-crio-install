@@ -163,7 +163,7 @@ apt-get update
 apt-get install cri-o cri-o-runc
 ```
 
-Find Conmon's path to the next step::
+Find Conmon's path to the next step:
 ```
 which conmon
 ```
@@ -172,20 +172,18 @@ Command result example:
 /usr/bin/conmon
 ```
 
-Edit `/etc/crio/crio.conf`
+Edit `/etc/crio/crio.conf`:
 ```
 vim /etc/crio/crio.conf
 ```
 _You must include the following lines in the file:_
 
 _Modify in (line 104)_
-
 ```
 conmon = "/usr/bin/conmon" 
 ```
 
 _Insert to (line 365)_
-
 ```
 registries = [
         "docker.io",
