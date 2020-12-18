@@ -174,17 +174,17 @@ Command result example:
 
 Edit `/etc/crio/crio.conf`
 ```
-/etc/crio/crio.conf
+vim /etc/crio/crio.conf
 ```
 _You must include the following lines in the file:_
 
-_(line 108)_
+_Modify in (line 104)_
 
 ```
 conmon = "/usr/bin/conmon" 
 ```
 
-_(line 351)_
+_Insert to (line 365)_
 
 ```
 registries = [
@@ -193,16 +193,13 @@ registries = [
 ]
 ```
 
-
-File creation `crio.conf`:
+Enable the CRI-O and make sure that it is running:
 ```
-vim /etc/crio/crio.conf
+sudo systemctl daemon-reload
+sudo systemctl enable crio
+sudo systemctl start crio
+sudo systemctl status crio
 ```
-Copy and paste the information below into the file:
-```
-/usr/bin/conmon
-```
-
 
 
 -----------------------
