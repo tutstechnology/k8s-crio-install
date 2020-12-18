@@ -10,8 +10,8 @@ _The installation simulation is based on a Master server and two Workers server 
 
 #### **Versions used:**
 
-**Kubernetes:** *1.20* |
-**CRI-O:** *1.20* |
+**Kubernetes:** *1.19.6* |
+**CRI-O:** *1.19.0* |
 **K8S Dashboard:** *2.1.0* |
 **Metrics:** *0.4.1* |
 
@@ -149,7 +149,7 @@ sudo sysctl --system
 Create variables for Ubuntu amd CRI-O version:
 ```
 export OS=xUbuntu_20.04
-export VERSION=1.20
+export VERSION=1.19
 ```
 
 Add CRI-O repositories and install:
@@ -215,7 +215,7 @@ sudo apt update
 
 Create variable for Kubernetes version:
 ```
-export K8SVERSION=1.20.0-00
+export K8SVERSION=1.19.6-00
 ```
 **IMPORTANT:** You can find the specific version by the following command:
 ```
