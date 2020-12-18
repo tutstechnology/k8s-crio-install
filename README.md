@@ -8,6 +8,13 @@ _This manual summarizes the good installation practices for the Kubernetes Clust
 
 _The installation simulation is based on a Master server and two Workers server nodes. For each step, there is information (master or worker) indicating where the configuration and deployment should be performed._
 
+Versions used:
+Kubernetes: 1.20
+CRI-O: 1.20
+
+**IMPORTANT:** You can modify the versions by changing the variables exemplified in this document.
+
+
 
 **In this installation plan, we will use the following servers / ip:**
 
