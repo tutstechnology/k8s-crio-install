@@ -92,6 +92,8 @@ Example:
 
 #### **Step 3**: | Master | Worker | - _Set the `hostname` for the Master server:_
 Example:
+
+Set hostname:
 ```
 hostnamectl set-hostname "server name"
 ```
@@ -118,6 +120,8 @@ sudo reboot
 ### Install CRI-O:
 
 #### **Step 6**: | Master | Worker | - _Installing CRI-O:_
+
+Load the overlay and br_netfilter modules:
 ```
 sudo modprobe overlay
 sudo modprobe br_netfilter
@@ -127,22 +131,27 @@ File creation `99-kubernetes-cri.conf`:
 ```
 vim /etc/sysctl.d/99-kubernetes-cri.conf
 ```
+
 Copy and paste the information below into the file:
 ```
 net.bridge.bridge-nf-call-iptables  = 1
 net.ipv4.ip_forward                 = 1
 net.bridge.bridge-nf-call-ip6tables = 1
 ```
+
+Apply the config file by running:
 ```
 sudo sysctl --system
 ```
-Create variables:
+
+Create variables for Ubuntu amd CRI-O version:
 ```
 sudo -i
 export OS=xUbuntu_20.04
 export VERSION=1.20
 ```
 
+Add CRI-O repositories and install:
 ```
 echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/ /" > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
 echo "deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$VERSION/$OS/ /" > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.list
@@ -154,6 +163,7 @@ apt-get update
 apt-get install cri-o cri-o-runc
 ```
 
+Find Conmon's path to the next step::
 ```
 which conmon
 ```
@@ -162,11 +172,10 @@ Command result example:
 /usr/bin/conmon
 ```
 
+Edit `/etc/crio/crio.conf`
 ```
 /etc/crio/crio.conf
 ```
-
-
 _You must include the following lines in the file:_
 
 _(line 108)_
