@@ -1,5 +1,5 @@
 # Install Cluster K8S with CRI-O on Ubuntu 20.04
-## (Master and Workers) and services: CRI-O, Dashboard, Metrics, Ambassador and Prometheus
+## Kuberneters (Master and Control Plane) and services: CRI-O, Dashboard, Metrics, Ambassador and Prometheus
 
 -----------------------
 ### Information:
