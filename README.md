@@ -222,17 +222,10 @@ export K8SVERSION=1.20.0-00
 curl -s https://packages.cloud.google.com/apt/dists/kubernetes-xenial/main/binary-amd64/Packages | grep Version | awk '{print $2}'
 ```
 
-Install `Kubeadm`
+Install `Kubeadm`, `kubectl`, `kubelet`and `kubernetes-cni`
 ```
-sudo apt install -y kubeadm=$K8SVERSION --allow-unauthenticated
+sudo apt install -y kubeadm=$K8SVERSION kubectl=$K8SVERSION kubelet=$K8SVERSION kubernetes-cni --allow-unauthenticated
 ```
-
-Install `kubectl`
-```
-sudo apt install -y kubectl=$K8SVERSION --allow-unauthenticated
-```
-
-Install `kubelet`
 
 File creation `kubelet`:
 ```
@@ -241,16 +234,6 @@ vim /etc/default/kubelet
 Copy and paste the information below into the file:
 ```
 KUBELET_EXTRA_ARGS=--feature-gates="AllAlpha=false,RunAsGroup=true" --container-runtime=remote --cgroup-driver=systemd --container-runtime-endpoint='unix:///var/run/crio/crio.sock' --runtime-request-timeout=5m
-```
-
-Install `kubelet`
-```
-sudo apt install -y kubelet=$K8SVERSION --allow-unauthenticated
-```
-
-Install `kubernetes-cni`
-```
-sudo apt-get install -y kubernetes-cni --allow-unauthenticated
 ```
 
 
