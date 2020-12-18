@@ -110,87 +110,41 @@ sudo reboot
 
 #### **Step 6**: | Master | Worker | - _Installing CRI-O:_
 ```
-sudo apt update
+sudo modprobe overlay
+sudo modprobe br_netfilter
+```
+
+File creation `99-kubernetes-cri.conf`:
+```
+vim /etc/sysctl.d/99-kubernetes-cri.conf
+```
+Copy and paste the information below into the file:
+```
+net.bridge.bridge-nf-call-iptables  = 1
+net.ipv4.ip_forward                 = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+```
+```
+sudo sysctl --system
+```
+Create variables:
+```
+sudo -i
+export OS=xUbuntu_20.04
+export VERSION=1.20
 ```
 
 ```
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/ /" > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+echo "deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$VERSION/$OS/ /" > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.list
+
+curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/Release.key | apt-key add -
+curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | apt-key add -
+
+apt-get update
+apt-get install cri-o cri-o-runc
 ```
 
-```
-sudo apt-key fingerprint 0EBFCD88
-```
-**The result of the above command should be this:**
-
-`pub   rsa4096 2017-02-22 [SCEA]`
-
-`9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88`
-      
-`uid           [ unknown] Docker Release (CE deb) <docker@docker.com>`
-
-`sub   rsa4096 2017-02-22 [S]`
-
-
-```
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-```
-
-```
-sudo apt update
-```
-
-```
-apt-cache madison docker-ce
-```
-
-**Result:**
-
-`docker-ce | 5:19.03.12~3-0~ubuntu-focal | https://download.docker.com/linux/ubuntu focal/stable amd64 Packages`
- 
-`docker-ce | 5:19.03.11~3-0~ubuntu-focal | https://download.docker.com/linux/ubuntu focal/stable amd64 Packages`
- 
-`docker-ce | 5:19.03.10~3-0~ubuntu-focal | https://download.docker.com/linux/ubuntu focal/stable amd64 Packages`
- 
-`docker-ce | 5:19.03.9~3-0~ubuntu-focal | https://download.docker.com/linux/ubuntu focal/stable amd64 Packages`
-
-**IMPORTANT:** 
-Replace `<VERSION_STRING>` and `<VERSION_STRING>` in the command below
-
-sudo apt-get install docker-ce=`<VERSION_STRING>` docker-ce-cli=`<VERSION_STRING>` containerd.io
-
-```
-apt-get install docker-ce=5:19.03.12~3-0~ubuntu-focal docker-ce-cli=5:19.03.12~3-0~ubuntu-focal containerd.io
-```
-
-```
-cat > /etc/docker/daemon.json <<EOF
-{
-  "exec-opts": ["native.cgroupdriver=systemd"],
-  "log-driver": "json-file",
-  "log-opts": {
-    "max-size": "100m"
-  },
-  "storage-driver": "overlay2"
-}
-EOF
-```
-
-```
-mkdir -p /etc/systemd/system/docker.service.d
-```
-
-```
-systemctl daemon-reload
-systemctl restart docker
-```
-
-```
-sudo docker run hello-world
-```
-
-```
-docker -v
-```
 
 -----------------------
 ### Installation and configuration Kubernetes:
