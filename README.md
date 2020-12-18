@@ -10,10 +10,10 @@ _The installation simulation is based on a Master server and two Workers server 
 
 #### **Versions used:**
 
-**Kubernetes:** *1.20*
-**CRI-O:** *1.20*
-**K8S Dashboard:** *2.1.0*
-**Metrics:** *0.4.1*
+**Kubernetes:** *1.20* |
+**CRI-O:** *1.20* |
+**K8S Dashboard:** *2.1.0* |
+**Metrics:** *0.4.1* |
 
 
 **IMPORTANT:** You can modify the versions by changing the variables exemplified in this document.
