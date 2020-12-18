@@ -141,6 +141,19 @@ net.ipv4.ip_forward                 = 1
 net.bridge.bridge-nf-call-ip6tables = 1
 ```
 
+Edit file `sysctl.conf`:
+```
+vim /etc/sysctl.conf
+```
+
+Copy and paste the information below into the file:
+```
+net.bridge.bridge-nf-call-iptables  = 1
+net.ipv4.ip_forward                 = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+```
+
+
 Apply the config file by running:
 ```
 sudo sysctl --system
