@@ -253,6 +253,13 @@ sudo apt install -y kubeadm=$K8SVERSION kubectl=$K8SVERSION kubelet=$K8SVERSION 
 
 
 #### **Step 8**: | Master | - _Cluster K8S configuration. Definition of the invite and pod network:_
+
+Load the overlay and br_netfilter modules:
+```
+sudo modprobe overlay
+sudo modprobe br_netfilter
+```
+
 ```
 kubeadm init --apiserver-advertise-address $(hostname -i) --pod-network-cidr=10.244.0.0/16 --service-dns-domain tutstechnology.local
 ```
