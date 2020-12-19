@@ -307,6 +307,12 @@ kubectl get pods -n kube-system
 
 #### **Step 11**: | Worker | - _Join Worker node to the Cluster:_
 
+Load the overlay and br_netfilter modules:
+```
+sudo modprobe overlay
+sudo modprobe br_netfilter
+```
+
 **IMPORTANT:** Use the command output seen in **step 8**
 ```
 kubeadm join 10.130.200.25:6443 --token kqbyqy.q6543jyyx6xl84yd \
