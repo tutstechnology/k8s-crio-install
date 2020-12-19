@@ -81,6 +81,7 @@ lsof -i -P -n | grep LISTEN
 #### **Step 1**: | Master | Worker | - _Update the latest packages using the apt `update command`:_
 ```
 sudo apt update -y
+sudo apt upgrade -y
 ```
 
 #### **Step 2**: | Master | Worker | - _Define the name and ip of the servers that form the k8s cluster. Edit the `/etc/hosts` file and add the cluster servers:_
@@ -223,10 +224,17 @@ Add K8S repositories and install:
 ```
 sudo apt-get update && sudo apt-get install -y apt-transport-https curl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
-deb https://apt.kubernetes.io/ kubernetes-xenial main
-EOF
+echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update
+```
+
+File creation `kubelet`:
+```
+vim /etc/default/kubelet
+```
+Copy and paste the information below into the file:
+```
+KUBELET_EXTRA_ARGS=--feature-gates="AllAlpha=false,RunAsGroup=true" --container-runtime=remote --cgroup-driver=systemd --container-runtime-endpoint='unix:///var/run/crio/crio.sock' --runtime-request-timeout=5m
 ```
 
 Create variable for Kubernetes version:
@@ -241,15 +249,6 @@ curl -s https://packages.cloud.google.com/apt/dists/kubernetes-xenial/main/binar
 Install `Kubeadm`, `kubectl`, `kubelet`and `kubernetes-cni`
 ```
 sudo apt install -y kubeadm=$K8SVERSION kubectl=$K8SVERSION kubelet=$K8SVERSION kubernetes-cni --allow-unauthenticated
-```
-
-File creation `kubelet`:
-```
-vim /etc/default/kubelet
-```
-Copy and paste the information below into the file:
-```
-KUBELET_EXTRA_ARGS=--feature-gates="AllAlpha=false,RunAsGroup=true" --container-runtime=remote --cgroup-driver=systemd --container-runtime-endpoint='unix:///var/run/crio/crio.sock' --runtime-request-timeout=5m
 ```
 
 
