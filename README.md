@@ -482,23 +482,27 @@ Example:
 _insert after line 43_
 ```
 ...
-spec:
-     containers:
-     - args:
-       - --cert-dir=/tmp
-       - --secure-port=4443
-       image: k8s.gcr.io/metrics-server/metrics-server:v0.3.7
-       command:
-       - /metrics-server
-       - --kubelet-insecure-tls
-       - --kubelet-preferred-address-types=InternalIP
-       imagePullPolicy: IfNotPresent
-       name: metrics-server
-       ports:
-       - containerPort: 4443
-         name: main-port
-         protocol: TCP
-        resources: {}
+    spec:
+      containers:
+      - args:
+        - --cert-dir=/tmp
+        - --secure-port=4443
+        - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+        - --kubelet-use-node-status-port
+        - --kubelet-insecure-tls
+        image: k8s.gcr.io/metrics-server/metrics-server:v0.4.1
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /livez
+            port: https
+            scheme: HTTPS
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: metrics-server
+        ports:
 ...
 ```
 
