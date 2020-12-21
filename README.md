@@ -333,7 +333,7 @@ kubectl get nodes
 kubectl get pods --all-namespaces
 ```
 -----------------------
-### Installation and configuration Dashboard (v2.0.3):
+### Installation and configuration Dashboard (v2.1.0):
 
 #### **Step 13**: | Master | - _Dashboard Deploy:_
 
