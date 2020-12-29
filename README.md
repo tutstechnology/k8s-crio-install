@@ -83,6 +83,13 @@ sudo apt upgrade -y
 
 #### **Step 2**: | Master | Worker | - _Define the name and ip of the servers that form the k8s cluster. Edit the `/etc/hosts` file and add the cluster servers:_
 Example:
+
+Edit file `/etc/hosts`:
+```
+vim /etc/hosts
+```
+
+Example:
 ```
 127.0.0.1 localhost
 192.168.15.11   hpv-prd-k8s-cplane01
@@ -120,12 +127,6 @@ sudo reboot
 ### Install CRI-O:
 
 #### **Step 6**: | Master | Worker | - _Installing CRI-O:_
-
-Load the overlay and br_netfilter modules:
-```
-sudo modprobe overlay
-sudo modprobe br_netfilter
-```
 
 File creation `99-kubernetes-cri.conf`:
 ```
