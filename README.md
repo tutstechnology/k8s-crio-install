@@ -282,7 +282,6 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 Model 1 - Flannel
 ```
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/k8s-manifests/kube-flannel-rbac.yml
 ```
 
 Model 2 - Weave Net
