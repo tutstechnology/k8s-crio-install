@@ -472,10 +472,7 @@ kubectl -n kube-system edit deploy metrics-server
 ```
 _You must include the following lines in the file.:_
 ```
-       command:
-       - /metrics-server
-       - --kubelet-insecure-tls
-       - --kubelet-preferred-address-types=InternalIP
+        - --kubelet-insecure-tls
 ```
 
 Example:
@@ -508,7 +505,7 @@ _insert after line 43_
 
 To verify that the changes were made to the file, run the command:
 ```
-kubectl get deploy metrics-server -n kube-system -o yaml | grep command -A 4
+kubectl get deploy metrics-server -n kube-system -o yaml | grep command -A 43
 ```
 
 Need to restart the `kubelet` service:
